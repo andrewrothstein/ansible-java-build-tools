@@ -1,4 +1,10 @@
 ---
+- name: install pkgs...
+  package: name={{item}} state=present
+  with_items:
+    - maven
+    - ant
+
 - name: (Debian) install...
   when: ansible_os_family == 'Debian'
   include: Debian.yml

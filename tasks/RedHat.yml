@@ -1,10 +1,4 @@
 ---
-- name : (RedHat) install maven and ant
-  yum: name={{ item }}
-  with_items:
-    - maven
-    - ant
-
 - name : (RedHat) proxify maven
   when: proxy_env.http_proxy is defined
   template: dest=/etc/maven/settings.xml src=usr/share/maven/conf/settings.xml.j2
