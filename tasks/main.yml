@@ -1,14 +1,24 @@
 ---
+- name: resolve platform specific vars
+  include_vars: "{{item}}"
+  with_first_found:
+    - "{{ansible_distribution}}-{{ansible_distribution_release}}.yml"
+    - "{{ansible_distribution}}.yml"
+    - "{{ansible_os_family}}.yml"
+    
 - name: install pkgs...
+  become: yes
+  become_user: root
   package: name={{item}} state=present
   with_items:
     - maven
     - ant
 
-- name: (Debian) install...
-  when: ansible_os_family == 'Debian'
-  include: Debian.yml
-
-- name: (RedHat) install...
-  when: ansible_os_family == 'RedHat'
-  include: RedHat.yml
+- name : (RedHat) proxify maven
+  become: yes
+  become_user: root
+  when: proxy_env.http_proxy is defined
+  template: >
+    dest={{java_build_tools_maven_settings_dir}}/settings.xml
+    src=usr/share/maven/conf/settings.xml.j2
+    mode=0644
