@@ -101,7 +101,7 @@ under the License.
       <protocol>https</protocol>
       <host>{{ http_proxy_hostname }}</host>
       <port>{{ http_proxy_port }}</port>
-      <nonProxyHosts>{{ proxy_env.no_proxy }}</nonProxyHosts>
+      <nonProxyHosts>{{ proxy_env.no_proxy | replace(",","|") }}</nonProxyHosts>
     </proxy>
 {% else %}
     <!-- proxy
