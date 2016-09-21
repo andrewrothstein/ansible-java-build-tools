@@ -90,6 +90,7 @@ under the License.
   <proxies>
 {% if http_proxy_hostname is defined %}
     <proxy>
+      <id>http-proxy</id>
       <active>true</active>
       <protocol>http</protocol>
       <host>{{ http_proxy_hostname }}</host>
@@ -97,6 +98,7 @@ under the License.
       <nonProxyHosts>{{ proxy_env.no_proxy | replace(",","|")  }}</nonProxyHosts>
     </proxy>
     <proxy>
+      <id>https-proxy</id>
       <active>true</active>
       <protocol>https</protocol>
       <host>{{ http_proxy_hostname }}</host>
@@ -197,7 +199,51 @@ under the License.
    |
    |-->
   <profiles>
-    <!-- profile
+    {% if maven_profiles is defined %}
+    {% for p in maven_profiles %}
+    <profile>
+      <id>{{p.id}}</id>
+      {% if 'repos' in p %}
+      <repositories>
+	{% for r in p.repos %}
+	<repository>
+	  <id>{{r.id}}</id>
+	  <name>{{r.name}}</name>
+	  {% if 'snapshots' in r %}
+	  <snapshots>
+	    <enabled>{{r.snapshots.enabled}}</enabled>
+	  </snapshots>
+	  {% endif %}
+	  <url>{{r.url}}</url>
+	</repository>
+	{% endfor %}
+      </repositories>
+      {% endif %}
+      {% if 'pluginRepos' in p %}
+      <pluginRepositories>
+	{% for pl in p.pluginRepos %}
+	<pluginRepository>
+	  <id>{{pl.id}}</id>
+	  <name>{{pl.name}}</name>
+	  {% if 'snapshots' in pl %}
+	  <snapshots>
+	    <enabled>{{pl.snapshots.enabled}}</enabled>
+	  </snapshots>
+	  {% endif %}
+	  <url>{{pl.url}}</url>
+	</pluginRepository>
+	{% endfor %}
+      </pluginRepositories>
+      {% endif %}
+      {% if 'properties' in p %}
+      {% for k,v in p.properties.iteritems() %}
+      <{{k}}>{{v}}</{{k}}>
+      {% endfor %}
+      {% endif %}
+    </profile>
+    {% endfor %}
+    {% else %}
+  <!-- profile
      | Specifies a set of introductions to the build process, to be activated using one or more of the
      | mechanisms described above. For inheritance purposes, and to activate profiles via <activatedProfiles/>
      | or the command line, profiles have to have an ID that is unique.
@@ -261,8 +307,17 @@ under the License.
       </properties>
     </profile>
     -->
+{% endif %}    
   </profiles>
 
+  {% if maven_active_profiles is defined %}
+  <activeProfiles>
+  {% for ap in maven_active_profiles %}
+  <activeProfile>{{ap}}</activeProfile>
+  {% endfor %}
+  </activeProfiles>
+  {% endif %}
+  
   <!-- activeProfiles
    | List of profiles that are active for all builds.
    |
