@@ -211,7 +211,7 @@ under the License.
 	  <name>{{r.name}}</name>
 	  {% if 'snapshots' in r %}
 	  <snapshots>
-	    <enabled>{{r.snapshots.enabled}}</enabled>
+	    <enabled>{{r.snapshots.enabled|to_json}}</enabled>
 	  </snapshots>
 	  {% endif %}
 	  <url>{{r.url}}</url>
@@ -227,7 +227,7 @@ under the License.
 	  <name>{{pl.name}}</name>
 	  {% if 'snapshots' in pl %}
 	  <snapshots>
-	    <enabled>{{pl.snapshots.enabled}}</enabled>
+	    <enabled>{{pl.snapshots.enabled|to_json}}</enabled>
 	  </snapshots>
 	  {% endif %}
 	  <url>{{pl.url}}</url>
@@ -236,9 +236,11 @@ under the License.
       </pluginRepositories>
       {% endif %}
       {% if 'properties' in p %}
-      {% for k,v in p.properties.iteritems() %}
-      <{{k}}>{{v}}</{{k}}>
-      {% endfor %}
+      <properties>
+	{% for k,v in p.properties.iteritems() %}
+	<{{k}}>{{v}}</{{k}}>
+	{% endfor %}
+      </properties>
       {% endif %}
     </profile>
     {% endfor %}

@@ -32,3 +32,17 @@ maven_profiles:
 maven_active_profiles:
   - profile-id
   - some-profile-id
+
+maven_toolchains:
+  - type: jdk
+    provides:
+      version: '1.8'
+      vendor: sun
+    configuration:
+      jdkHome: /usr/lib/jvm/java-8-oracle
+  - type: jdk
+    provides:
+      version: '1.8'
+      vendor: openjdk
+    configuration:
+      jdkHome: /usr/lib/jvm/java-8-openjdk-amd64
