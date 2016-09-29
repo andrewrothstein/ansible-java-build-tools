@@ -44,22 +44,17 @@ under the License.
 <toolchains xmlns="http://maven.apache.org/TOOLCHAINS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/TOOLCHAINS/1.1.0 http://maven.apache.org/xsd/toolchains-1.1.0.xsd">
 
-  {% if maven_toolchains is defined %}
-  {% for t in maven_toolchains %}
+  {% if maven_toolchain is defined %}
   <toolchain>
-    <type>{{t.type}}</type>
+    <type>jdk</type>
     <provides>
-      {% for k,v in t.provides.iteritems() %}
-      <{{k}}>{{v}}</{{k}}>
-      {% endfor %}
+      <version>1.{{maven_toolchain.java_ver}}</version>
+      <vendor>{{maven_toolchain.vendor}}</vendor>
     </provides>
     <configuration>
-      {% for k,v in t.configuration.iteritems() %}
-      <{{k}}>{{v}}</{{k}}>
-      {% endfor %}
+      <jdkHome>{{java_build_tools_jdkhome}}</jdkHome>
     </configuration>
   </toolchain>
-  {% endfor %}
   {% else %}
   <!-- 
    | With toolchains you can refer to installations on your system. This 
