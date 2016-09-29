@@ -22,5 +22,9 @@ galaxy_info:
     - development
 
 dependencies:
-  - {role: andrewrothstein.java, java_ver: "7", version: v1.0.2}
-  - {role: andrewrothstein.java, java_ver: "8", version: v1.0.2}
+  - role: andrewrothstein.java
+    java_ver: 7
+    version: v1.0.2
+  - role: andrewrothstein.java
+    java_ver: 8
+    version: v1.0.2
