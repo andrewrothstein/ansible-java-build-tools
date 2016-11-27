@@ -25,5 +25,5 @@ galaxy_info:
     - jdk
 
 dependencies:
-  - role: andrewrothstein.oracle-jdk
+  - role: andrewrothstein.java-oracle-jdk
     version: v1.0.0
