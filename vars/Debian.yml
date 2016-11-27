@@ -1,3 +1,3 @@
 ---
 java_build_tools_maven_settings_dir : /usr/share/maven/conf
-java_build_tools_jdkhome: '/usr/lib/jvm/{% if maven_toolchain.vendor == "sun" %}java-{{maven_toolchain.java_ver}}-oracle{% else %}java-{{maven_toolchain.java_ver}}-openjdk-amd64{% endif %}'
+java_build_tools_jdkhome: /usr/lib/jvm/java-8-oracle

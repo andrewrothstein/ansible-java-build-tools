@@ -9,18 +9,21 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 7
+        - all
     - name: Fedora
       versions:
-        - 23
+        - all
     - name: Ubuntu
       versions:
-        - trusty
-        - xenial
+        - all
 
   galaxy_tags:
     - development
+    - java
+    - build
+    - maven
+    - jdk
 
 dependencies:
-  - role: andrewrothstein.java
-    version: v2.0.1
+  - role: andrewrothstein.oracle-jdk
+    version: v1.0.0
