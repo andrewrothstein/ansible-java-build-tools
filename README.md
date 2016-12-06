@@ -1,21 +1,21 @@
 Role Name
 =========
 
-Installs Java build tools. Currently Maven.
+Installs Java JDK + Maven
 
 Requirements
 ------------
 
-Java should be installed
+See [andrewrothstein.java-oracle-jre](https://github.com/andrewrothstein/ansible-java-oracle-jre) and [andrewrothstein.maven](https://github.com/andrewrothstein/ansible-maven)
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - andrewrothstein.java-build-tools
+```yml
+- hosts: servers
+  roles:
+    - andrewrothstein.java-build-tools
+```
 
 License
 -------
@@ -25,4 +25,4 @@ MIT
 Author Information
 ------------------
 
-Andrew Rothstein - andrew.rothstein@gmail.com
+Andrew Rothstein <andrew.rothstein@gmail.com>
